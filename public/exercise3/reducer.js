@@ -9,18 +9,35 @@ let initialState = {
 
 
 // This reducer isn't pure! Fix it plz
+// const reducer = (state = initialState, action) => {
+// 	if (action.type == "ADD_TODO") {
+// 		state.todos.push({
+// 			text: action.todoText,
+// 			isComplete: false
+// 		});
+// 		return state;
+// 	} else if (action.type == "TOGGLE_TODO") {
+// 		let todoToToggle = state.todos[action.todoIndex];
+// 		todoToToggle.isComplete = !todoToToggle.isComplete;
+// 		return state;
+// 	} else {
+// 		return state;
+// 	}
+// }
+
 const reducer = (state = initialState, action) => {
+	let newState = {...state, todos: [...state.todos.map(todo => {return {...todo}})]};
 	if (action.type == "ADD_TODO") {
-		state.todos.push({
+		newState.todos.push({
 			text: action.todoText,
 			isComplete: false
 		});
-		return state;
+		return newState;
 	} else if (action.type == "TOGGLE_TODO") {
-		let todoToToggle = state.todos[action.todoIndex];
+		let todoToToggle = newState.todos[action.todoIndex];
 		todoToToggle.isComplete = !todoToToggle.isComplete;
-		return state;
+		return newState;
 	} else {
-		return state;
+		return newState;
 	}
 }
